@@ -188,8 +188,9 @@ public class Solucion implements Cloneable{
         }
         //Añadir trayecto
         else{
+            System.out.println(viajes[t]);
             viajes[t] = c;
-            int actual_ini = rides[t][1];
+            int actual_ini = rides[t][4];
             ListIterator<int[]> it = solucion.get(c).listIterator();
             boolean fin = false;
             int[] viaje_ant = null, viaje_post = null;
@@ -202,8 +203,11 @@ public class Solucion implements Cloneable{
             trayecto[0] = t;
             trayecto[1] = cabe(viaje_ant, viaje_post, t);
             trayecto[2] = trayecto[1] + dif_score;
+            if(it.hasPrevious())
+                it.previous();
             it.add(trayecto);
         }
+        score += dif_score;
     }
     
     public int cabe(int[] ant, int[] sig, int t){
