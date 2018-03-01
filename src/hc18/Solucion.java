@@ -67,8 +67,12 @@ public class Solucion{
     //J end
     //A ini
     public void aplicar_cambios(int t, int c){
-        for(int i = 0; i < sol[0].length; i++){
-            if(sol[c][i].t_ini)
+        
+        for(int i=0; i< solucion.get(0).size(); i++){
+            if(this.solucion.get(c).get(i)[1] > this.rides[t][5]){
+                this.solucion.get(c).
+            }
+                
         }
     }
     //A end
