@@ -1,6 +1,7 @@
 package hc18;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class Solucion{
         this.rides = rides;
         
         this.viajes = new int[RIDES];
+        Arrays.fill(viajes, -1);
         
         this.solucion = new ArrayList<>(VEHICLES);
         for(int i=0; i<VEHICLES; i++){
@@ -49,10 +51,6 @@ public class Solucion{
 //Guillermo ini
     public boolean validar_crear(int t, int c){
         int actual_fin = rides[t][5];
-        
-    }
-    
-    public boolean validar_eliminar(int t, int c){
         
     }
     //G end
@@ -76,8 +74,14 @@ public class Solucion{
     }
     //J end
     //A ini
-    public void aplicar_cambios(Trayecto t, int c){
-
+    public void aplicar_cambios(int t, int c){
+        
+        for(int i=0; i< solucion.get(0).size(); i++){
+            if(this.solucion.get(c).get(i)[1] > this.rides[t][5]){
+                this.solucion.get(c).
+            }
+                
+        }
     }
     //A end
 }
