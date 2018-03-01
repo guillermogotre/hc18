@@ -1,10 +1,12 @@
+package hc18;
+
 import com.sun.org.apache.xalan.internal.xsltc.dom.BitArray;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-package hc18;
+
  
 public class Solucion{
     final int ROW;
