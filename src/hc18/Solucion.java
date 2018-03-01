@@ -217,9 +217,28 @@ public class Solucion{
     public int cabe(int[] ant, int[] sig, int t){
         int coge;
         
-        int hueco = distancia(rides[ant[0]][2], rides[ant[0]][3], rides[sig[0]][0], rides[sig[0]][1]);
-        
         int distancia_nueva = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
+        
+        if(ant == null && sig == null){
+            coge = rides[t][4];
+            return coge;
+        }
+        
+        if(ant == null){
+            coge = rides[t][4];
+            int fin = coge+distancia_nueva;
+            if(fin < sig[1]){
+                return coge;
+            }
+            else return -1;
+        }
+        
+        if(sig == null){
+            coge = Integer.max(rides[t][4], rides[ant[0]][5]);
+            return coge;
+        }
+        
+        int hueco = distancia(rides[ant[0]][2], rides[ant[0]][3], rides[sig[0]][0], rides[sig[0]][1]);
         
         if(hueco < distancia_nueva)
             coge = -1;
