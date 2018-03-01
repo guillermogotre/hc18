@@ -3,8 +3,10 @@ package hc18;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -63,8 +65,23 @@ public class Solucion{
     // Juanka fin
     
 //Guillermo ini
-    public boolean validar_crear(int t, int c){
+    //out: -1 no valido , it si valido
+    public int validar_crear(int t, int c){
         int actual_fin = rides[t][5];
+        ListIterator<int[]> it = solucion.get(c).listIterator();
+        boolean fin = false;
+        boolean valido = false;
+        int[] viaje_ant, viaje_post;
+        if(it.hasNext()){
+            
+        }
+        while(it.hasNext() && !false){
+            viaje = it.next();
+            fin = viaje[1] >= actual_fin
+        }
+    }
+    
+    public int validar_eliminar(int t, int c){
         
     }
     //G end
