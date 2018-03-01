@@ -1,5 +1,6 @@
 import com.sun.org.apache.xalan.internal.xsltc.dom.BitArray;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +13,7 @@ public class Solucion{
     final int BONUS;
     final int TIME;
     
-    BitArray viajes;
+    BitSet viajes;
     List<LinkedList<int[]>> solucion;
     int[][] rides;
     
