@@ -81,7 +81,7 @@ public class Solucion implements Cloneable{
        // Clonar solucion
        s.solucion = new ArrayList<>();
        this.solucion.forEach((l) -> {
-           s.solucion.add(l);
+           s.solucion.add((LinkedList < int[] >)l.clone());
         });
         return s;
     }
@@ -101,7 +101,10 @@ public class Solucion implements Cloneable{
             viaje_post = it.next();
             fin = viaje_post[1] >= actual_ini;
         }
-         
+        if(!fin){
+            viaje_ant = viaje_post;
+            viaje_post = null;
+        }
        //si cabe
        return cabe(viaje_ant, viaje_post, t);
     }
@@ -184,6 +187,7 @@ public class Solucion implements Cloneable{
                 }
                 
             } 
+            
             it.remove();
             viajes[t] = -1;
         }
@@ -207,6 +211,8 @@ public class Solucion implements Cloneable{
             if(it.hasPrevious())
                 it.previous();
             it.add(trayecto);
+            if(trayecto[1]==rides[t][4])
+                score -= BONUS;
         }
         score += dif_score;
     }
