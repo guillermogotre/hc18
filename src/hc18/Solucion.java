@@ -6,6 +6,7 @@ import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 
  
@@ -45,6 +46,19 @@ public class Solucion{
     
     public void generar_salida(String file_out){
         
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        Object obj = super.clone();
+        Solucion s = (Solucion)obj;
+        
+        // Clonar viajes
+        s.viajes = this.viajes.clone();
+        
+       // Clonar solucion
+       
+        return s;
     }
     // Juanka fin
     
