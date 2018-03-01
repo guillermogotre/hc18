@@ -61,7 +61,7 @@ public class Problema {
         
         // Logica de recocido simulado
         
-        double score = solucion.getScore();
+        double score = 0.0;
         for(int iter=0; iter<ITER; iter++){
             int c_k = c_ini;
             double t_k = t_ini;
@@ -70,10 +70,11 @@ public class Problema {
             
             while (c_k >= 0) {            
                 for (int i = 0; i < iter_por_temp; i++) {
-                    List<Object> score_prima = solucion.crear_vecino();
+                    // double score, int t(indice viaje), int c(indice coche)
+                    List<Object> score_prima = solucion.crear_hermano();
                     //float p = 
                     if((double) score_prima.get(0) > score || getProbabilidad(score, (double) score_prima.get(0), t_k) > Math.random()){
-                        solucion.aplicar_cambio((Solucion.SolCel) score_prima.get(1), (int) score_prima.get(2), (int) score_prima.get(3));
+                        solucion.aplicar_cambios((int) score_prima.get(1), (int) score_prima.get(2));
 
                         //System.out.println("" + c_k + " " + score + " " + scorePrima_and_cambio[0]);
                         c_k = c_ini;
