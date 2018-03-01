@@ -1,6 +1,8 @@
 package hc18;
 
+import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -48,7 +50,24 @@ public class Solucion{
     }
     
     public void generar_salida(String file_out){
-        
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            //fichero = new FileWriter(file_out);
+            pw = new PrintWriter(file_out);
+
+            for(int i = 0; i < VEHICLES; i++){
+                pw.print(solucion.get(i).size()+" ");
+                for(int j = 0; j < solucion.get(i).size(); j++){
+                    pw.print(solucion.get(i).get(j)[0]+" ");
+                }
+                pw.println();
+                pw.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     @Override
