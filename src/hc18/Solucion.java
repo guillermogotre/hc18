@@ -17,7 +17,7 @@ public class Solucion{
     final int TIME;
     final int[][] rides;
     
-    BitSet viajes;
+    int[] viajes;
     List<LinkedList<int[]>> solucion;
     
     
@@ -33,6 +33,8 @@ public class Solucion{
         this.TIME = time;
         this.rides = rides;
         
+        this.viajes = new int[RIDES];
+        
         this.solucion = new ArrayList<>(VEHICLES);
         for(int i=0; i<VEHICLES; i++){
             this.solucion.add(new LinkedList<>());
@@ -41,8 +43,12 @@ public class Solucion{
     }
     
 //Guillermo ini
-    public boolean validar(int t, int c){
+    public boolean validar_crear(int t, int c){
         int actual_fin = rides[t][5];
+        
+    }
+    
+    public boolean validar_eliminar(int t, int c){
         
     }
     //G end
