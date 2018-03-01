@@ -1,6 +1,7 @@
 package hc18;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Solucion{
     final int TIME;
     final int[][] rides;
     
-    BitSet viajes;
+    int[] viajes;
     List<LinkedList<int[]>> solucion;
     
     
@@ -33,6 +34,9 @@ public class Solucion{
         this.TIME = time;
         this.rides = rides;
         
+        this.viajes = new int[RIDES];
+        Arrays.fill(viajes, -1);
+        
         this.solucion = new ArrayList<>(VEHICLES);
         for(int i=0; i<VEHICLES; i++){
             this.solucion.add(new LinkedList<>());
@@ -41,7 +45,7 @@ public class Solucion{
     }
     
 //Guillermo ini
-    public boolean validar(int t, int c){
+    public boolean validar_crear(int t, int c){
         int actual_fin = rides[t][5];
         
     }
