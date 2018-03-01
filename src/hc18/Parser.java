@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testhc2;
+package hc18;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,19 +22,29 @@ public class Parser {
     }
     
     public Problema parse() throws FileNotFoundException{
-        //  rows, columns, drones, turns, max_payload
-        int rows, columns, n_drones, turns, max_payload;
+        //  rows, columns, n_vehicles, n_rides, bonus, n_steps
+        int rows, columns, n_vehicles, n_rides, bonus, n_steps;
         
         Scanner scanner = new Scanner(new File(fich_in));
         rows = scanner.nextInt();
         columns = scanner.nextInt();
-        n_drones = scanner.nextInt();
-        turns = scanner.nextInt();
-        max_payload = scanner.nextInt();
+        n_vehicles = scanner.nextInt();
+        n_rides = scanner.nextInt();
+        bonus = scanner.nextInt();
+        n_steps = scanner.nextInt();
         
-        // product _types, products_weighs[]
-        int n_product_types, products_weighs[];
-        n_product_types = scanner.nextInt();
+        // rides_from_to[][], rides_start_finish[][]
+        int rides_from_to[][], rides_start_finish[][];
+
+        rides_from_to = new int[n_rides][4];
+        rides_start_finish = new int[n_rides][2];
+        
+        for (int i = 0; i < n_rides; i++) {
+            rides_from_to[i][0] = scanner.nextInt();
+            rides_from_to[i][1] = scanner.nextInt();
+            rides_from_to[i][2] = scanner.nextInt();
+            rides_from_to[i][3] = scanner.nextInt();
+        }
         
         products_weighs = new int[n_product_types];
         

@@ -3,14 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testhc2;
+package hc18;
 
 import static java.lang.Math.sqrt;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import static java.lang.Math.random;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;

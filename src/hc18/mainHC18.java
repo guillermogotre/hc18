@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testhc2;
+package hc18;
 
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,15 +12,15 @@ import java.util.logging.Logger;
  *
  * @author guillermo
  */
-public class TestHC1 {
+public class mainHC18 {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        final String fichero_in = "src/input/busy_day.in";
-        final String fichero_out = "src/salidas/busy_day.out";
+        final String fichero_in = "src/input/"+args[0]+".in";
+        final String fichero_out = "src/salidas/"+args[0]+".out";
         Parser parser;
         Problema problema;
         try {
@@ -31,7 +30,7 @@ public class TestHC1 {
             problema.setFileDest(fichero_out);
             problema.start();
         } catch (Exception ex) {
-            Logger.getLogger(TestHC1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(mainHC18.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace(System.err);
         }
         
