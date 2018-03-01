@@ -219,8 +219,13 @@ public class Solucion{
         
         int distancia_nueva = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
         
+        if(ant == null && sig == null){
+            coge = rides[t][4];
+            return coge;
+        }
+        
         if(ant == null){
-            coge = rides[t][1];
+            coge = rides[t][4];
             int fin = coge+distancia_nueva;
             if(fin < sig[1]){
                 return coge;
