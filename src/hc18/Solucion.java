@@ -53,19 +53,34 @@ public class Solucion{
     }
     //G end
     //J ini
+    public int distancia(int a, int b, int x, int y){
+        return Math.abs(a-x)+Math.abs(b-y);
+    }
     public List<Object> crear_hermano(){
         Random r = new Random();
-        boolean validar;
-        double scorenew = 0;
+        int validar;
+        int scorenew = 0;
         List<Object> res = new ArrayList();
         
         while(true){
             int t = r.nextInt(RIDES);
-            int 
-            if(viajes.get(t)){
-                t = viajes.nextClearBit(t);
-            }
             int c = r.nextInt(VEHICLES);
+            if(viajes[t] >=0){
+                validar = validar_eliminar(t, c);
+                scorenew = score;
+                if(rides[t][4] == validar){
+                    scorenew-=BONUS;
+                }
+                int orix = rides[t][0];
+                int oriy = rides[t][1];
+                int destx = rides[t][2];
+                int desty = rides[t][3];
+                scorenew -= distancia(orix, oriy, destx, desty);
+                res.add(scorenew);
+                res.add(t);
+                res.add(-1);
+                return res;
+            }
             validar = validar(t,c);
             if(validar){
                 scorenew = score+;
