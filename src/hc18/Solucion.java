@@ -1,6 +1,8 @@
 package hc18;
 
+import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -48,7 +50,24 @@ public class Solucion{
     }
     
     public void generar_salida(String file_out){
-        
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            //fichero = new FileWriter(file_out);
+            pw = new PrintWriter(file_out);
+
+            for(int i = 0; i < VEHICLES; i++){
+                pw.print(solucion.get(i).size()+" ");
+                for(int j = 0; j < solucion.get(i).size(); j++){
+                    pw.print(solucion.get(i).get(j)[0]+" ");
+                }
+                pw.println();
+                pw.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     @Override
@@ -60,7 +79,10 @@ public class Solucion{
         s.viajes = this.viajes.clone();
         
        // Clonar solucion
-       
+       s.solucion = new ArrayList<>();
+       this.solucion.forEach((l) -> {
+           s.solucion.add(l);
+        });
         return s;
     }
     // Juanka fin
@@ -69,17 +91,19 @@ public class Solucion{
     //out: -1 no valido , it si valido
     public int validar_crear(int t, int c){
         int actual_fin = rides[t][5];
+        int actual_ini = rides[t][4];
         ListIterator<int[]> it = solucion.get(c).listIterator();
         boolean fin = false;
         boolean valido = false;
-        int[] viaje_ant, viaje_post;
-        if(it.hasNext()){
-            
+        int[] viaje_ant = null, viaje_post = null;
+        while(it.hasNext() && !fin){
+            viaje_ant = viaje_post;
+            viaje_post = it.next();
+            fin = viaje_post[1] >= actual_ini;
         }
-        while(it.hasNext() && !false){
-            viaje = it.next();
-            fin = viaje[1] >= actual_fin
-        }
+         
+       //si cabe
+       return cabe(viaje_ant, viaje_post, t);
     }
     
     public int validar_eliminar(int t, int c){
@@ -89,6 +113,7 @@ public class Solucion{
             if(el[0] == t)
                 return el[1];
         }
+        return -1;
     }
     //G end
     //J ini
@@ -151,6 +176,10 @@ public class Solucion{
             }
                 
         }
+        boolean eliminar_trayecto = viajes[t] < 0;
+        //Eliminar trayecto
+        if()
+        //Añadir trayecto
     }
     
     public int cabe(int[] ant, int[] sig, int t){
