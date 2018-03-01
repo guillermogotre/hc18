@@ -15,8 +15,10 @@ public class Solucion{
     }
     //J end
     //A ini
-    public void aplicar_cambios(Trayecto t, int c){
-
+    public void aplicar_cambios(int t, int c){
+        for(int i = 0; i < sol[0].length; i++){
+            if(sol[c][i].t_ini)
+        }
     }
     //A end
 }
