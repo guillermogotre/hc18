@@ -16,6 +16,17 @@ public class Solucion{
     
     int score;
     
+    // Juanca constructor
+    public Solucion(int row, int column, int vehicles, int n_rides, int bonus, int time, int rides[][]){
+        this.ROW = row;
+        this.COLUMN = column;
+        this.VEHICLES = vehicles;
+        this.RIDES = n_rides;
+        this.BONUS = bonus;
+        this.TIME = time;
+        this.rides = rides;
+    }
+    
 //Guillermo ini
     public boolean validar(int t, int c){
         
