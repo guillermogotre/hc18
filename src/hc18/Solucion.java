@@ -209,6 +209,8 @@ public class Solucion implements Cloneable{
     public int cabe(int[] ant, int[] sig, int t){
         int coge;
         
+         
+        
         int distancia_nueva = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
         
         if(ant == null && sig == null){
@@ -232,14 +234,30 @@ public class Solucion implements Cloneable{
         
         int hueco = distancia(rides[ant[0]][2], rides[ant[0]][3], rides[sig[0]][0], rides[sig[0]][1]);
         
-        if(hueco < distancia_nueva)
+        coge = Integer.max(rides[t][4], rides[ant[0]][5]);
+        
+        int distancia_ab = distancia(rides[ant[0]][2], rides[ant[0]][3], rides[t][0], rides[t][1]);
+        int distancia_bc = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
+        int distancia_cd = distancia(rides[t][2], rides[t][3], rides[sig[0]][0], rides[sig[0]][1]);
+        int distancia_final = distancia_ab + distancia_bc + distancia_cd;
+        
+        if(hueco < distancia_final)
             coge = -1;
-        else{
-            coge = Integer.max(rides[t][4], rides[ant[0]][5]);
-            int fin = coge+distancia_nueva;
-            if(fin >= sig[1])
-                coge = -1;
-        }
+        
+        //else if(){
+            
+          //  int fin = coge+distancia_nueva;
+            
+            
+            //if(hueco < distancia_final) return -1;
+            //return coge;
+        //}
+        //else{
+          //  coge = Integer.max(rides[t][4], rides[ant[0]][5]);
+            //int fin = coge+distancia_nueva;
+            //if(fin >= sig[1])
+              //  coge = -1;
+        //}
         
         return coge;
     }
