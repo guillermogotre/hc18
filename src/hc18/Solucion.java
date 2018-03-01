@@ -23,7 +23,7 @@ public class Solucion{
     
     int score;
     
-    // Juanca constructor
+    // Juanca ini
     public Solucion(int row, int column, int vehicles, int n_rides, int bonus, int time, int rides[][]){
         this.ROW = row;
         this.COLUMN = column;
@@ -39,8 +39,12 @@ public class Solucion{
         for(int i=0; i<VEHICLES; i++){
             this.solucion.add(new LinkedList<>());
         }
+    }
+    
+    public void generar_salida(String file_out){
         
     }
+    // Juanka fin
     
 //Guillermo ini
     public boolean validar_crear(int t, int c){
