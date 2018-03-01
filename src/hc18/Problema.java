@@ -18,7 +18,7 @@ public class Problema {
     Solucion solucion;
     
     final int ITER = 1;
-    final int c_ini = 1000;
+    final int c_ini = 1000000;
     final double t_ini = 10000.0;
     final double alpha = 0.99;
     final int iter_por_temp = 1000;
@@ -87,7 +87,7 @@ public class Problema {
                             //Si cambias la linea anterior por la siguiente
                             //va más rápido pero falla a veces (i%10 == 0)
                             //En verdad no estoy seguro
-                                solucionMax= solucion;
+                                solucionMax= (Solucion)solucion.clone();
                             
                             scoreMax = score;
                             guardado = false;
