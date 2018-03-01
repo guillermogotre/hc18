@@ -178,8 +178,35 @@ public class Solucion{
         }
         boolean eliminar_trayecto = viajes[t] < 0;
         //Eliminar trayecto
-        if()
+        int dif_score = dif_score = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
+        if(eliminar_trayecto)
+        {
+            dif_score *= -1;
+            ListIterator<int[]> it = solucion.get(viajes[t]).listIterator();
+            while(it.hasNext()){
+                int[] el = it.next();
+                if(el[0] == t) {
+                    //Si bonus
+                    if(el[1]==rides[t][4])
+                        score -= BONUS;
+                    //No bonus
+                }
+                break;
+            } 
+            it.remove();
+            
+        }
         //Añadir trayecto
+        else{
+            ListIterator<int[]> it = solucion.get(c).listIterator();
+            boolean fin = false;
+            int[] viaje_ant = null, viaje_post = null;
+            while(it.hasNext() && !fin){
+                viaje_ant = viaje_post;
+                viaje_post = it.next();
+                fin = viaje_post[1] >= actual_ini;
+            }
+        }
     }
     
     public int cabe(int[] ant, int[] sig, int t){
