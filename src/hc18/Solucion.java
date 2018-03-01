@@ -39,16 +39,19 @@ public class Solucion{
     public List<Object> crear_hermano(){
         Random r = new Random();
         boolean validar;
+        double scorenew = 0;
         List<Object> res = new ArrayList();
         
         while(true){
             int t = r.nextInt(RIDES);
+            int 
             if(viajes.get(t)){
                 t = viajes.nextClearBit(t);
             }
             int c = r.nextInt(VEHICLES);
             validar = validar(t,c);
             if(validar){
+                scorenew = score+;
                 res.add()
             }
         }
