@@ -60,7 +60,10 @@ public class Solucion{
         s.viajes = this.viajes.clone();
         
        // Clonar solucion
-       
+       s.solucion = new ArrayList<>();
+       this.solucion.forEach((l) -> {
+           s.solucion.add(l);
+        });
         return s;
     }
     // Juanka fin
@@ -154,6 +157,10 @@ public class Solucion{
             }
                 
         }
+        boolean eliminar_trayecto = viajes[t] < 0;
+        //Eliminar trayecto
+        if()
+        //Añadir trayecto
     }
     
     public int cabe(int[] ant, int[] sig, int t){
