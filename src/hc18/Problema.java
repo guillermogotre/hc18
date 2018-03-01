@@ -12,15 +12,8 @@ import java.util.List;
  * @author jose
  */
 public class Problema {
-    int rows, columns;
-    int num_drones, num_types_products, num_warehouses, num_orders;
-    int turns;
-    int max_payload;
-    int products_weighs[];
-    int disponibilidad[][];
-    int orders_without_t[][];
-    int order_pos[];
-    int ware_pos[];
+    int rows, columns, n_vehicles, n_rides, bonus, n_steps;
+    int rides[][];
     String file_out;
     Solucion solucion;
     
@@ -35,7 +28,23 @@ public class Problema {
     
     public Problema(int rows, int columns, int n_vehicles, int n_rides, int bonus, int n_steps,
                     int rides_from_to[][], int rides_start_finish[][]){
+        this.rows = rows;
+        this.columns = columns;
+        this.n_vehicles = n_vehicles;
+        this.n_rides = n_rides;
+        this.bonus = bonus;
+        this.n_steps = n_steps;
         
+        // [row_ori, col_ori, row_fin, col_fin, start, finish]
+        rides = new int[n_rides][6];
+        
+        for (int i = 0; i < n_rides; i++) {
+            for (int j = 0; j < 4; j++) {
+                rides[i][j] = rides_from_to[i][j];
+            }
+            rides[i][4] = rides_start_finish[i][0];
+            rides[i][5] = rides_start_finish[i][1];
+        }
         
         scoreMax = 0.0;
         Solucion solucionMax;
@@ -47,8 +56,7 @@ public class Problema {
     
     public void start() throws CloneNotSupportedException{     
         // Solucion inicial
-        solucion = new Solucion(rows, columns, num_drones, turns, max_payload, products_weighs,
-                                disponibilidad, order_pos, orders_without_t, ware_pos);
+        solucion = new Solucion(rows, columns,n_vehicles, n_rides,bonus,n_steps, rides);
         boolean even = true;
         
         // Logica de recocido simulado
