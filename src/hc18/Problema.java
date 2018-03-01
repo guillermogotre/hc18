@@ -22,7 +22,7 @@ public class Problema {
     final double t_ini = 10000.0;
     final double alpha = 0.99;
     final int iter_por_temp = 1000;
-    double scoreMax;
+    int scoreMax;
     Solucion solucionMax;
     boolean guardado = false;
     
@@ -46,7 +46,7 @@ public class Problema {
             rides[i][5] = rides_start_finish[i][1];
         }
         
-        scoreMax = 0.0;
+        scoreMax = 0;
         Solucion solucionMax;
     }
     
@@ -61,7 +61,7 @@ public class Problema {
         
         // Logica de recocido simulado
         
-        double score = 0.0;
+        int score = 0;
         for(int iter=0; iter<ITER; iter++){
             int c_k = c_ini;
             double t_k = t_ini;
@@ -73,14 +73,14 @@ public class Problema {
                     // double score, int t(indice viaje), int c(indice coche)
                     List<Object> score_prima = solucion.crear_hermano();
                     //float p = 
-                    if((double) score_prima.get(0) > score || getProbabilidad(score, (double) score_prima.get(0), t_k) > Math.random()){
+                    if((int) score_prima.get(0) > score || getProbabilidad(score, (int) score_prima.get(0), t_k) > Math.random()){
                         solucion.aplicar_cambios((int) score_prima.get(1), (int) score_prima.get(2));
 
                         //System.out.println("" + c_k + " " + score + " " + scorePrima_and_cambio[0]);
                         c_k = c_ini;
 
 
-                        score = (double) score_prima.get(0);
+                        score = (int) score_prima.get(0);
                         //if(scoreMax < score && i%10 == 0){
                             if(scoreMax < score){
                             //solucionMax = solucion.clone();
@@ -119,10 +119,10 @@ public class Problema {
         solucionMax.generar_salida(file_out);
     }
     
-    public double getProbabilidad(double score, double scorePrima, double t_k){
-        double dif = scorePrima-score;
+    public double getProbabilidad(int score, int scorePrima, double t_k){
+        int dif = scorePrima-score;
         if(dif==0) return 0;
-        double p = Math.exp(dif / t_k);
+        double p = Math.exp(1.0*dif / t_k);
         //System.out.println(p);
         return p;
     }
