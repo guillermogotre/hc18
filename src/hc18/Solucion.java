@@ -81,7 +81,7 @@ public class Solucion{
         }
          
        //si cabe
-       return cabe(viaje_ant, viaje_post, actual_ini, actual_fin);
+       return cabe(viaje_ant, viaje_post, t);
     }
     
     public int validar_eliminar(int t, int c){
@@ -91,6 +91,7 @@ public class Solucion{
             if(el[0] == t)
                 return el[1];
         }
+        return -1;
     }
     //G end
     //J ini
