@@ -71,7 +71,7 @@ public class Solucion implements Cloneable{
     }
     
     @Override
-    public Object clone() throws CloneNotSupportedException{
+    public Solucion clone() throws CloneNotSupportedException{
         Object obj = super.clone();
         Solucion s = (Solucion)obj;
         
@@ -180,14 +180,16 @@ public class Solucion implements Cloneable{
                     if(el[1]==rides[t][4])
                         score -= BONUS;
                     //No bonus
+                    break;
                 }
-                break;
+                
             } 
             it.remove();
             viajes[t] = -1;
         }
         //Añadir trayecto
         else{
+            //System.out.println(viajes[t]);
             viajes[t] = c;
             int actual_ini = rides[t][4];
             ListIterator<int[]> it = solucion.get(c).listIterator();
@@ -202,8 +204,11 @@ public class Solucion implements Cloneable{
             trayecto[0] = t;
             trayecto[1] = cabe(viaje_ant, viaje_post, t);
             trayecto[2] = trayecto[1] + dif_score;
+            if(it.hasPrevious())
+                it.previous();
             it.add(trayecto);
         }
+        score += dif_score;
     }
     
     public int cabe(int[] ant, int[] sig, int t){
