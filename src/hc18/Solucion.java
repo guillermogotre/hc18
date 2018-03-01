@@ -178,7 +178,7 @@ public class Solucion{
         }
         boolean eliminar_trayecto = viajes[t] < 0;
         //Eliminar trayecto
-        int dif_score = dif_score = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
+        int dif_score = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
         if(eliminar_trayecto)
         {
             dif_score *= -1;
@@ -198,6 +198,7 @@ public class Solucion{
         }
         //Añadir trayecto
         else{
+            int actual_ini = rides[t][1];
             ListIterator<int[]> it = solucion.get(c).listIterator();
             boolean fin = false;
             int[] viaje_ant = null, viaje_post = null;
@@ -206,6 +207,10 @@ public class Solucion{
                 viaje_post = it.next();
                 fin = viaje_post[1] >= actual_ini;
             }
+            int[] trayecto = new int[3];
+            trayecto[0] = t;
+            trayecto[1] = cabe(viaje_ant, viaje_post, t);
+            trayecto[2] = trayecto[1] + dif_score;
         }
     }
     
