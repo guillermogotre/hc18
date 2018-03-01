@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 
 
  
-public class Solucion{
+public class Solucion implements Cloneable{
     final int ROW;
     final int COLUMN;
     final int VEHICLES;
@@ -166,17 +166,7 @@ public class Solucion{
     //J end
     //A ini
     public void aplicar_cambios(int t, int c){
-        int[] aux = new int[3];
-        for(int i=0; i< solucion.get(0).size(); i++){
-            if(this.solucion.get(c).get(i)[1] > this.rides[t][5]){
-                aux[0]=t;
-                aux[1]=0;
-                aux[2]=0;
-                this.solucion.get(c).add(i, aux);
-            }
-                
-        }
-        boolean eliminar_trayecto = viajes[t] < 0;
+        boolean eliminar_trayecto = viajes[t] >= 0;
         //Eliminar trayecto
         int dif_score = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
         if(eliminar_trayecto)
@@ -194,10 +184,11 @@ public class Solucion{
                 break;
             } 
             it.remove();
-            
+            viajes[t] = -1;
         }
         //Añadir trayecto
         else{
+            viajes[t] = c;
             int actual_ini = rides[t][1];
             ListIterator<int[]> it = solucion.get(c).listIterator();
             boolean fin = false;
@@ -211,6 +202,7 @@ public class Solucion{
             trayecto[0] = t;
             trayecto[1] = cabe(viaje_ant, viaje_post, t);
             trayecto[2] = trayecto[1] + dif_score;
+            it.add(trayecto);
         }
     }
     
