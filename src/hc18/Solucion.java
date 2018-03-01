@@ -189,7 +189,7 @@ public class Solucion implements Cloneable{
         //Añadir trayecto
         else{
             viajes[t] = c;
-            int actual_ini = rides[t][1];
+            int actual_ini = rides[t][4];
             ListIterator<int[]> it = solucion.get(c).listIterator();
             boolean fin = false;
             int[] viaje_ant = null, viaje_post = null;
