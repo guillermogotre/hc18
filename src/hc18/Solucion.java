@@ -19,7 +19,7 @@ public class Solucion{
     
 //Guillermo ini
     public boolean validar(int t, int c){
-        
+        int actual_fin = 
     }
     //G end
     //J ini
