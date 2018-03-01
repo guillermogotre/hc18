@@ -1,11 +1,15 @@
 package hc18;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 
  
@@ -24,7 +28,7 @@ public class Solucion{
     
     int score;
     
-    // Juanca constructor
+    // Juanca ini
     public Solucion(int row, int column, int vehicles, int n_rides, int bonus, int time, int rides[][]){
         this.ROW = row;
         this.COLUMN = column;
@@ -41,30 +45,96 @@ public class Solucion{
         for(int i=0; i<VEHICLES; i++){
             this.solucion.add(new LinkedList<>());
         }
+    }
+    
+    public void generar_salida(String file_out){
         
     }
     
-//Guillermo ini
-    public boolean validar_crear(int t, int c){
-        int actual_fin = rides[t][5];
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        Object obj = super.clone();
+        Solucion s = (Solucion)obj;
         
+        // Clonar viajes
+        s.viajes = this.viajes.clone();
+        
+       // Clonar solucion
+       
+        return s;
+    }
+    // Juanka fin
+    
+//Guillermo ini
+    //out: -1 no valido , it si valido
+    public int validar_crear(int t, int c){
+        int actual_fin = rides[t][5];
+        ListIterator<int[]> it = solucion.get(c).listIterator();
+        boolean fin = false;
+        boolean valido = false;
+        int[] viaje_ant, viaje_post;
+        if(it.hasNext()){
+            
+        }
+        while(it.hasNext() && !false){
+            viaje = it.next();
+            fin = viaje[1] >= actual_fin
+        }
+    }
+    
+    public int validar_eliminar(int t, int c){
+        ListIterator<int[]> it = solucion.get(viajes[t]).listIterator();
+        while(it.hasNext()){
+            int[] el = it.next();
+            if(el[0] == t)
+                return el[1];
+        }
     }
     //G end
     //J ini
+    public int distancia(int a, int b, int x, int y){
+        return Math.abs(a-x)+Math.abs(b-y);
+    }
     public List<Object> crear_hermano(){
         Random r = new Random();
-        boolean validar;
+        int validar;
+        int scorenew = 0;
         List<Object> res = new ArrayList();
         
         while(true){
             int t = r.nextInt(RIDES);
-            if(viajes.get(t)){
-                t = viajes.nextClearBit(t);
-            }
             int c = r.nextInt(VEHICLES);
-            validar = validar(t,c);
-            if(validar){
-                res.add()
+            if(viajes[t] >=0){
+                validar = validar_eliminar(t, c);
+                scorenew = score;
+                if(rides[t][4] == validar){
+                    scorenew-=BONUS;
+                }
+                int orix = rides[t][0];
+                int oriy = rides[t][1];
+                int destx = rides[t][2];
+                int desty = rides[t][3];
+                scorenew -= distancia(orix, oriy, destx, desty);
+                res.add(scorenew);
+                res.add(t);
+                res.add(-1);
+                return res;
+            }
+            validar = validar_crear(t, c);
+            if(validar >= 0){
+                scorenew = score;
+                if(rides[t][4] == validar){
+                    scorenew+=BONUS;
+                }
+                int orix = rides[t][0];
+                int oriy = rides[t][1];
+                int destx = rides[t][2];
+                int desty = rides[t][3];
+                scorenew += distancia(orix, oriy, destx, desty);
+                res.add(scorenew);
+                res.add(t);
+                res.add(c);
+                return res;
             }
         }
     }
