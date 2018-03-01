@@ -14,6 +14,8 @@ public class Solucion{
     List<List<int[]>> solucion;
     List<int[]> rides;
     
+    int score;
+    
 //Guillermo ini
     public boolean validar(int t, int c){
         
