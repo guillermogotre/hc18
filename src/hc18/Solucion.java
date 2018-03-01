@@ -68,17 +68,19 @@ public class Solucion{
     //out: -1 no valido , it si valido
     public int validar_crear(int t, int c){
         int actual_fin = rides[t][5];
+        int actual_ini = rides[t][4];
         ListIterator<int[]> it = solucion.get(c).listIterator();
         boolean fin = false;
         boolean valido = false;
-        int[] viaje_ant, viaje_post;
-        if(it.hasNext()){
-            
+        int[] viaje_ant = null, viaje_post = null;
+        while(it.hasNext() && !fin){
+            viaje_ant = viaje_post;
+            viaje_post = it.next();
+            fin = viaje_post[1] >= actual_ini;
         }
-        while(it.hasNext() && !false){
-            viaje = it.next();
-            fin = viaje[1] >= actual_fin
-        }
+         
+       //si cabe
+       return cabe(viaje_ant, viaje_post, actual_ini, actual_fin);
     }
     
     public int validar_eliminar(int t, int c){
