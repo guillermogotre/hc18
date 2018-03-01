@@ -1,7 +1,7 @@
 package hc18;
 
-import com.sun.org.apache.xalan.internal.xsltc.dom.BitArray;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -17,7 +17,7 @@ public class Solucion{
     final int TIME;
     final int[][] rides;
     
-    BitArray viajes;
+    BitSet viajes;
     List<LinkedList<int[]>> solucion;
     
     
@@ -47,10 +47,21 @@ public class Solucion{
     }
     //G end
     //J ini
-    public List<Objet> crear_hermano(){
+    public List<Object> crear_hermano(){
         Random r = new Random();
+        boolean validar;
+        List<Object> res = new ArrayList();
+        
         while(true){
-            int t = r.nexRandom(5);
+            int t = r.nextInt(RIDES);
+            if(viajes.get(t)){
+                t = viajes.nextClearBit(t);
+            }
+            int c = r.nextInt(VEHICLES);
+            validar = validar(t,c);
+            if(validar){
+                res.add()
+            }
         }
     }
     //J end
