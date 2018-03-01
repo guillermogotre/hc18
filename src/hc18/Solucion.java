@@ -1,5 +1,6 @@
 package hc18;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -84,7 +85,12 @@ public class Solucion{
     }
     
     public int validar_eliminar(int t, int c){
-        
+        ListIterator<int[]> it = solucion.get(viajes[t]).listIterator();
+        while(it.hasNext()){
+            int[] el = it.next();
+            if(el[0] == t)
+                return el[1];
+        }
     }
     //G end
     //J ini
@@ -137,13 +143,20 @@ public class Solucion{
     //J end
     //A ini
     public void aplicar_cambios(int t, int c){
-        
+        int[] aux = new int[3];
         for(int i=0; i< solucion.get(0).size(); i++){
             if(this.solucion.get(c).get(i)[1] > this.rides[t][5]){
-                this.solucion.get(c).
+                aux[0]=t;
+                aux[1]=0;
+                aux[2]=0;
+                this.solucion.get(c).add(i, aux);
             }
                 
         }
+    }
+    
+    public int cabe(int[] ant, int[] sig, int t){
+        
     }
     //A end
 }
