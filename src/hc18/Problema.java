@@ -17,7 +17,7 @@ public class Problema {
     String file_out;
     Solucion solucion;
     
-    final int ITER = 1000;
+    final int ITER = 1;
     final int c_ini = 1000;
     final double t_ini = 10000.0;
     final double alpha = 0.99;
