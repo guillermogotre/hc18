@@ -34,10 +34,21 @@ public class Solucion{
     }
     //G end
     //J ini
-    public List<Objet> crear_hermano(){
+    public List<Object> crear_hermano(){
         Random r = new Random();
+        boolean validar;
+        List<Object> res = new ArrayList();
+        
         while(true){
-            int t = r.nexRandom(5);
+            int t = r.nextInt(RIDES);
+            if(viajes.get(t)){
+                t = viajes.nextClearBit(t);
+            }
+            int c = r.nextInt(VEHICLES);
+            validar = validar(t,c);
+            if(validar){
+                res.add()
+            }
         }
     }
     //J end
