@@ -1,5 +1,6 @@
 package hc18;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -82,7 +83,12 @@ public class Solucion{
     }
     
     public int validar_eliminar(int t, int c){
-        
+        ListIterator<int[]> it = solucion.get(viajes[t]).listIterator();
+        while(it.hasNext()){
+            int[] el = it.next();
+            if(el[0] == t)
+                return el[1];
+        }
     }
     //G end
     //J ini
