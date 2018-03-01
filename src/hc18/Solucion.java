@@ -1,4 +1,5 @@
 import com.sun.org.apache.xalan.internal.xsltc.dom.BitArray;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
  
@@ -11,8 +12,8 @@ public class Solucion{
     final int TIME;
     
     BitArray viajes;
-    List<List<int[]>> solucion;
-    List<int[]> rides;
+    List<LinkedList<int[]>> solucion;
+    int[][] rides;
     
     int score;
     
@@ -29,7 +30,7 @@ public class Solucion{
     
 //Guillermo ini
     public boolean validar(int t, int c){
-        
+        int actual_fin = 
     }
     //G end
     //J ini
