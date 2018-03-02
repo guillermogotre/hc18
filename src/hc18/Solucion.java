@@ -128,6 +128,25 @@ public class Solucion implements Cloneable{
     }
     //G end
     //J ini
+    
+    public int donde(int c, int posini){
+        LinkedList<int[]> lista = solucion.get(c);
+        boolean salir = false;
+        int pos = 0;
+        int posfin = -1;
+        
+        ListIterator<int[]> it = lista.listIterator();
+        while(it.hasNext() && !salir){
+            int[] el = it.next();
+            if(el[2] < posini ){
+                posfin = pos;
+            }
+            else salir = true;
+            pos++;
+        }
+        return posfin;
+    }
+    
     public int distancia(int a, int b, int x, int y){
         return Math.abs(a-x)+Math.abs(b-y);
     }
