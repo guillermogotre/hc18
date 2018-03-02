@@ -127,7 +127,15 @@ public class Solucion implements Cloneable{
         
         ListIterator<int[]> it = solucion.get(c).listIterator();
         int[] el,viaje_ant = null, viaje_post= null;
-        while(it.hasNext()){
+        
+        if(solucion.get(c).isEmpty()){
+            result = cabe(viaje_ant,viaje_post,t,c);
+            if(result != -1){
+                resultados.add(result);
+            }
+        }
+        else{
+            while(it.hasNext()){
             el = it.next();
             viaje_post = el;
             result = cabe(viaje_ant,viaje_post,t,c);
@@ -135,13 +143,15 @@ public class Solucion implements Cloneable{
                 resultados.add(result);
             }
             viaje_ant = viaje_post;
-        }
-        if(viaje_ant != null && viaje_post == null){
-            result = cabe(viaje_ant,viaje_post,t,c);
-            if(result != -1){
-                resultados.add(result);
+            }
+            if(viaje_ant != null && viaje_post == null){
+                result = cabe(viaje_ant,viaje_post,t,c);
+                if(result != -1){
+                    resultados.add(result);
+                }
             }
         }
+        if(resultados.isEmpty()) return -1;
         int eleccion = (int) Math.random()*resultados.size();
         
         return resultados.get(eleccion);
@@ -227,7 +237,56 @@ public class Solucion implements Cloneable{
     }
     //J end
     //A ini
-    public void aplicar_cambios(int t, int c,int pos){
+//    public void aplicar_cambios(int t, int c,int pos){
+//        boolean eliminar_trayecto = viajes[t] >= 0;
+//        //Eliminar trayecto
+//        int dif_score = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
+//        if(eliminar_trayecto)
+//        {
+//            dif_score *= -1;
+//            ListIterator<int[]> it = solucion.get(viajes[t]).listIterator();
+//            while(it.hasNext()){
+//                int[] el = it.next();
+//                if(el[0] == t) {
+//                    //Si bonus
+//                    if(el[1]==rides[t][4])
+//                        dif_score -= BONUS;
+//                    //No bonus
+//                    break;
+//                }
+//                
+//            } 
+//            
+//            it.remove();
+//            viajes[t] = -1;
+//        }
+//        //Añadir trayecto
+//        else{
+//            //System.out.println(viajes[t]);
+//            viajes[t] = c;
+//            int actual_ini = rides[t][4];
+//            ListIterator<int[]> it = solucion.get(c).listIterator();
+//            boolean fin = false;
+//            int[] viaje_ant = null, viaje_post = null;
+//            while(it.hasNext() && !fin){
+//                viaje_ant = viaje_post;
+//                viaje_post = it.next();
+//                fin = viaje_post[1] >= actual_ini;
+//            }
+//            int[] trayecto = new int[3];
+//            trayecto[0] = t;
+//            trayecto[1] = cabe(viaje_ant, viaje_post, t, c);
+//            trayecto[2] = trayecto[1] + dif_score;
+//            if(it.hasPrevious())
+//                it.previous();
+//            it.add(trayecto);
+//            if(trayecto[1]==rides[t][4])
+//                dif_score += BONUS;
+//        }
+//        score += dif_score;
+//    }
+    
+        public void aplicar_cambios(int t, int c,int pos){
         boolean eliminar_trayecto = viajes[t] >= 0;
         //Eliminar trayecto
         int dif_score = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
@@ -253,64 +312,75 @@ public class Solucion implements Cloneable{
         //Añadir trayecto
         else{
             //System.out.println(viajes[t]);
-            viajes[t] = c;
-            int actual_ini = rides[t][4];
-            ListIterator<int[]> it = solucion.get(c).listIterator();
-            boolean fin = false;
-            int[] viaje_ant = null, viaje_post = null;
-            while(it.hasNext() && !fin){
-                viaje_ant = viaje_post;
-                viaje_post = it.next();
-                fin = viaje_post[1] >= actual_ini;
-            }
-            int[] trayecto = new int[3];
-            trayecto[0] = t;
-            trayecto[1] = cabe(viaje_ant, viaje_post, t, c);
-            trayecto[2] = trayecto[1] + dif_score;
-            if(it.hasPrevious())
-                it.previous();
-            it.add(trayecto);
-            if(trayecto[1]==rides[t][4])
-                dif_score += BONUS;
-        }
-        score += dif_score;
+            int[] nuevo = new int[3];
+            nuevo[0] = t;
+            nuevo[1] = pos;
+            nuevo[2] = pos+distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
     }
     
-    public int cabe(int[] anterior, int[] ultimo, int trayecto, int coche){
-        // nuevo_t_ini = max(t_fin+d, t_min)
-        // nuevo_t_fin = t_min + d
-        final int ROW_ORI = 0;
-        final int COL_ORI = 1;
-        final int T_MIN = 4;
-        final int T_MAX = 5;
-        final int T_INI = 1;
-        final int T_FIN = 2;
-        
-        int t_ini_a, t_ini_b, t_fin_a, t_fin_b;
-        int d_p, d_pp;
+//    public int cabe(int[] anterior, int[] ultimo, int trayecto, int coche){
+//        // nuevo_t_ini = max(t_fin+d, t_min)
+//        // nuevo_t_fin = t_min + d
+//        final int ROW_ORI = 0;
+//        final int COL_ORI = 1;
+//        final int T_MIN = 4;
+//        final int T_MAX = 5;
+//        final int T_INI = 1;
+//        final int T_FIN = 2;
+//        
+//        int t_ini_a, t_ini_b, t_fin_a, t_fin_b;
+//        int d_p, d_pp;
+//
+//        if(anterior == ultimo && anterior != null)
+//            return -1;
+//        
+//        ListIterator<int[]> it = solucion.get(coche).listIterator();
+//        int a[] = null, b[] = null;
+//        if(anterior != null && ultimo != null){
+//            while(it.hasNext()){
+//                a = b;
+//                
+//            }
+//        }
+//        else if(anterior == null && ultimo == null){
+//            return Math.max(distancia(0,0, rides[trayecto][ROW_ORI], rides[trayecto][COL_ORI]),rides[trayecto][T_MIN]);
+//        }
+//        else if(anterior == null){
+//            
+//        }
+//        //ultimo == null
+//        else{
+//            
+//        }
+//        
+//    }
 
-        if(anterior == ultimo && anterior != null)
-            return -1;
-        
-        ListIterator<int[]> it = solucion.get(coche).listIterator();
-        int a[] = null, b[] = null;
-        if(anterior != null && ultimo != null){
-            while(it.hasNext()){
-                a = b;
-                
-            }
+    public int cabe(int[] anterior, int[] siguiente, int trayecto, int coche){
+        int t_fina = 0,t_finb = 0,t_inia = 0,t_inib = 0;
+        int d_p = 0,d_pp = 0, d = distancia(rides[trayecto][0], rides[trayecto][1], rides[trayecto][2], rides[trayecto][3]);
+        if(anterior == null && siguiente == null){
+            return Math.max(distancia(0,0, rides[trayecto][0], rides[trayecto][1]),rides[trayecto][4]);
         }
-        else if(anterior == null && ultimo == null){
-            return Math.max(distancia(0,0, rides[trayecto][ROW_ORI], rides[trayecto][COL_ORI]),rides[trayecto][T_MIN]);
+        if(anterior == null){
+            t_fina = 0;
+            d_p = distancia(0, 0, rides[trayecto][0], rides[trayecto][1]);
         }
-        else if(anterior == null){
-            
+        else if(siguiente == null){
+            t_inib = rides[trayecto][5];
+            d_pp = 0;
         }
-        //ultimo == null
         else{
-            
+            t_inia = anterior[0];
+            t_fina = anterior[1];
+            t_inib = siguiente[0];
+            t_finb = siguiente[1];
+            d_p = distancia(t_inia, t_fina, rides[trayecto][0], rides[trayecto][1]);
+            d_pp = distancia(rides[trayecto][2], rides[trayecto][3], t_inib, t_finb);
         }
-        
+        if(rides[trayecto][4]+d+d_pp <= t_inib && t_inib-(d+d_pp)-t_fina >= d_p){
+            return t_fina+d_p;
+        }
+        return -1;
     }
     
     public void mostrar(){
