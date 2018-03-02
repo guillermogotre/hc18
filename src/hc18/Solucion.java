@@ -89,32 +89,62 @@ public class Solucion implements Cloneable{
     
 //Guillermo ini
     //out: -1 no valido , it si valido
+//    public int validar_crear(int t, int c){
+//        final int T_INI = 1;
+//        final int T_FIN = 2;
+//        final int T_MIN = 4;
+//        final int T_MAX = 5;
+//        
+//        int t_min = rides[t][T_MIN];
+//        int t_max = rides[t][T_MAX];
+//        ListIterator<int[]> it = solucion.get(c).listIterator();
+//        boolean fin = false;
+//        int[] el, viaje_ant = null, viaje_post= null, candidato=null;
+//        while(it.hasNext() && !fin){
+//            el = it.next();
+//            if(viaje_ant == null){
+//                if(el[T_INI] > t_min)
+//                    viaje_ant = candidato;
+//                else
+//                    candidato = el;
+//            }
+//            if(el[T_FIN] > t_max){
+//                viaje_post = el;
+//                fin = true;
+//            }
+//        }
+//       //si cabe
+//       return cabe(viaje_ant, viaje_post, t);
+//    }
+    
     public int validar_crear(int t, int c){
         final int T_INI = 1;
         final int T_FIN = 2;
         final int T_MIN = 4;
         final int T_MAX = 5;
+        int result;
+        List<Integer> resultados = new ArrayList();
         
-        int t_min = rides[t][T_MIN];
-        int t_max = rides[t][T_MAX];
         ListIterator<int[]> it = solucion.get(c).listIterator();
-        boolean fin = false;
-        int[] el, viaje_ant = null, viaje_post= null, candidato=null;
-        while(it.hasNext() && !fin){
+        int[] el,viaje_ant = null, viaje_post= null;
+        while(it.hasNext()){
             el = it.next();
-            if(viaje_ant == null){
-                if(el[T_INI] > t_min)
-                    viaje_ant = candidato;
-                else
-                    candidato = el;
+            viaje_post = el;
+            result = cabe(viaje_ant,viaje_post,t,c);
+            if(result != -1){
+                resultados.add(result);
             }
-            if(el[T_FIN] > t_max){
-                viaje_post = el;
-                fin = true;
+            viaje_ant = viaje_post;
+        }
+        if(viaje_ant != null && viaje_post == null){
+            result = cabe(viaje_ant,viaje_post,t,c);
+            if(result != -1){
+                resultados.add(result);
             }
         }
-       //si cabe
-       return cabe(viaje_ant, viaje_post, t);
+        int eleccion = (int) Math.random()*resultados.size();
+        
+        return resultados.get(eleccion);
     }
     
     public int validar_eliminar(int t, int c){
