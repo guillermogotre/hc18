@@ -216,7 +216,7 @@ public class Solucion implements Cloneable{
             }
             int[] trayecto = new int[3];
             trayecto[0] = t;
-            trayecto[1] = cabe(viaje_ant, viaje_post, t);
+            trayecto[1] = cabe(viaje_ant, viaje_post, t, c);
             trayecto[2] = trayecto[1] + dif_score;
             if(it.hasPrevious())
                 it.previous();
@@ -227,11 +227,40 @@ public class Solucion implements Cloneable{
         score += dif_score;
     }
     
-    public int cabe(int[] ant, int[] sig, int trayecto, int coche){
+    public int cabe(int[] anterior, int[] ultimo, int trayecto, int coche){
         // nuevo_t_ini = max(t_fin+d, t_min)
         // nuevo_t_fin = t_min + d
+        final int ROW_ORI = 0;
+        final int COL_ORI = 1;
+        final int T_MIN = 4;
+        final int T_MAX = 5;
+        final int T_INI = 1;
+        final int T_FIN = 2;
         
+        int t_ini_a, t_ini_b, t_fin_a, t_fin_b;
+        int d_p, d_pp;
+
+        if(anterior == ultimo && anterior != null)
+            return -1;
         
+        ListIterator<int[]> it = solucion.get(coche).listIterator();
+        int a[] = null, b[] = null;
+        if(anterior != null && ultimo != null){
+            while(it.hasNext()){
+                a = b;
+                
+            }
+        }
+        else if(anterior == null && ultimo == null){
+            return Math.max(distancia(0,0, rides[trayecto][ROW_ORI], rides[trayecto][COL_ORI]),rides[trayecto][T_MIN]);
+        }
+        else if(anterior == null){
+            
+        }
+        //ultimo == null
+        else{
+            
+        }
         
     }
     
