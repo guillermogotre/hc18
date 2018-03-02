@@ -71,11 +71,11 @@ public class Problema {
             
             while (c_k >= 0) {            
                 for (int i = 0; i < iter_por_temp; i++) {
-                    // double score, int t(indice viaje), int c(indice coche)
+                    // double score, int t(indice viaje), int c(indice coche), int pos(indice insertar new ride)
                     List<Object> score_prima = solucion.crear_hermano();
                     //float p = 
                     if((int) score_prima.get(0) > score || getProbabilidad(score, (int) score_prima.get(0), t_k) > Math.random()){
-                        solucion.aplicar_cambios((int) score_prima.get(1), (int) score_prima.get(2));
+                        solucion.aplicar_cambios((int) score_prima.get(1), (int) score_prima.get(2), (int) score_prima.get(3));
 
                         //System.out.println("" + c_k + " " + score + " " + scorePrima_and_cambio[0]);
                         c_k = c_ini;
