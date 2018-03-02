@@ -170,7 +170,7 @@ public class Solucion implements Cloneable{
     }
     //J end
     //A ini
-    public void aplicar_cambios(int t, int c){
+    public void aplicar_cambios(int t, int c,int pos){
         boolean eliminar_trayecto = viajes[t] >= 0;
         //Eliminar trayecto
         int dif_score = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
