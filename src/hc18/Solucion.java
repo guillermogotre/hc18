@@ -178,7 +178,7 @@ public class Solucion implements Cloneable{
         ListIterator<int[]> it = lista.listIterator();
         while(it.hasNext() && !salir){
             int[] el = it.next();
-            if(el[2] < posini ){
+            if(el[3] < posini ){
                 posfin = pos;
             }
             else salir = true;
@@ -308,6 +308,7 @@ public class Solucion implements Cloneable{
             } 
             
             it.remove();
+            score+=dif_score;
             viajes[t] = -1;
         }
         //Añadir trayecto
