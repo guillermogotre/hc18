@@ -184,6 +184,7 @@ public class Solucion implements Cloneable{
             else salir = true;
             pos++;
         }
+        if(lista.isEmpty()) return 0;
         return posfin;
     }
     
@@ -218,6 +219,7 @@ public class Solucion implements Cloneable{
             }
             validar = validar_crear(t, c);
             if(validar >= 0){
+                System.out.println("valido");
                 scorenew = score;
                 if(rides[t][4] == validar){
                     scorenew+=BONUS;
@@ -233,6 +235,7 @@ public class Solucion implements Cloneable{
                 res.add(validar);
                 return res;
             }
+            System.out.println("no valido");
         }
     }
     //J end
@@ -316,7 +319,10 @@ public class Solucion implements Cloneable{
             nuevo[0] = t;
             nuevo[1] = pos;
             nuevo[2] = pos+distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
+            int donde = donde(c,pos);
+            solucion.get(c).add(donde,nuevo);
     }
+}
     
 //    public int cabe(int[] anterior, int[] ultimo, int trayecto, int coche){
 //        // nuevo_t_ini = max(t_fin+d, t_min)
