@@ -220,6 +220,8 @@ public class Solucion implements Cloneable{
     }
     
     public int cabe(int[] ant, int[] sig, int t){
+        // nuevo_t_ini = max(t_fin+d, t_min)
+        // nuevo_t_fin = t_min + d
         int coge;
         
         int distancia_nueva = distancia(rides[t][0], rides[t][1], rides[t][2], rides[t][3]);
