@@ -90,20 +90,28 @@ public class Solucion implements Cloneable{
 //Guillermo ini
     //out: -1 no valido , it si valido
     public int validar_crear(int t, int c){
-        int actual_fin = rides[t][5];
-        int actual_ini = rides[t][4];
+        final int T_INI = 1;
+        final int T_FIN = 2;
+        final int T_MIN = 4;
+        final int T_MAX = 5;
+        
+        int t_min = rides[t][T_MIN];
+        int t_max = rides[t][T_MAX];
         ListIterator<int[]> it = solucion.get(c).listIterator();
         boolean fin = false;
-        boolean valido = false;
-        int[] viaje_ant = null, viaje_post = null;
+        int[] el, viaje_ant = null, viaje_post= null, candidato=null;
         while(it.hasNext() && !fin){
-            viaje_ant = viaje_post;
-            viaje_post = it.next();
-            fin = viaje_post[1] >= actual_ini;
-        }
-        if(!fin){
-            viaje_ant = viaje_post;
-            viaje_post = null;
+            el = it.next();
+            if(viaje_ant == null){
+                if(el[T_INI] > t_min)
+                    viaje_ant = candidato;
+                else
+                    candidato = el;
+            }
+            if(el[T_FIN] > t_max){
+                viaje_post = el;
+                fin = true;
+            }
         }
        //si cabe
        return cabe(viaje_ant, viaje_post, t);
@@ -181,7 +189,7 @@ public class Solucion implements Cloneable{
                 if(el[0] == t) {
                     //Si bonus
                     if(el[1]==rides[t][4])
-                        score -= BONUS;
+                        dif_score -= BONUS;
                     //No bonus
                     break;
                 }
@@ -212,7 +220,7 @@ public class Solucion implements Cloneable{
                 it.previous();
             it.add(trayecto);
             if(trayecto[1]==rides[t][4])
-                score -= BONUS;
+                dif_score += BONUS;
         }
         score += dif_score;
     }
@@ -269,6 +277,18 @@ public class Solucion implements Cloneable{
         //}
         
         return coge;
+    }
+    
+    public void mostrar(){
+        for(int i = 0; i < VEHICLES; i++){
+            int tam = solucion.get(i).size();
+           for(int j = 0; j < tam; j++){
+               System.out.print(solucion.get(i).get(j)[0]+" ");
+           }
+           System.out.println();
+        }
+        System.out.println("# " + score);
+        System.out.println("####");
     }
     //A end
 }

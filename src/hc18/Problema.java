@@ -97,6 +97,7 @@ public class Problema {
                     else{
                         c_k--;
                     }
+//                    solucion.mostrar();
                 }
                 t_k *= alpha;
                 System.out.println(t_k + " " + scoreMax);
