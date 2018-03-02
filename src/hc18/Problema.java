@@ -19,9 +19,9 @@ public class Problema {
     
     final int ITER = 100000;
     final int c_ini = 1000000;
-    final double t_ini = 1000.0;
+    final double t_ini = 1000000.0;
     final double alpha = 0.99;
-    final int iter_por_temp = 600;
+    final int iter_por_temp = 1000;
     int scoreMax;
     Solucion solucionMax;
     boolean guardado = false;
