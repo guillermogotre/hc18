@@ -19,8 +19,8 @@ public class mainHC18 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        final String fichero_in = "src/input/b.in";
-        final String fichero_out = "src/salidas/b.out";
+        final String fichero_in = "src/input/c.in";
+        final String fichero_out = "src/salidas/c.out";
         Parser parser;
         Problema problema;
         try {

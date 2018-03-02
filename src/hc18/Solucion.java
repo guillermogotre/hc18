@@ -146,6 +146,7 @@ public class Solucion implements Cloneable{
                 res.add(scorenew);
                 res.add(t);
                 res.add(-1);
+                res.add(validar);
                 return res;
             }
             validar = validar_crear(t, c);
@@ -162,6 +163,7 @@ public class Solucion implements Cloneable{
                 res.add(scorenew);
                 res.add(t);
                 res.add(c);
+                res.add(validar);
                 return res;
             }
         }
