@@ -171,6 +171,7 @@ public class Solucion implements Cloneable{
     
     public int donde(int c, int posini){
         LinkedList<int[]> lista = solucion.get(c);
+        int tam = solucion.get(c).size();
         boolean salir = false;
         int pos = 0;
         int posfin = -1;
