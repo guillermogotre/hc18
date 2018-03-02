@@ -175,6 +175,8 @@ public class Solucion implements Cloneable{
         int pos = 0;
         int posfin = -1;
         
+        if(lista.isEmpty()) return 0;
+        
         ListIterator<int[]> it = lista.listIterator();
         while(it.hasNext() && !salir){
             int[] el = it.next();
@@ -184,7 +186,7 @@ public class Solucion implements Cloneable{
             else salir = true;
             pos++;
         }
-        if(lista.isEmpty()) return 0;
+        
         return posfin;
     }
     
