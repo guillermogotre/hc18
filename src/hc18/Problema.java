@@ -17,11 +17,11 @@ public class Problema {
     String file_out;
     Solucion solucion;
     
-    final int ITER = 100000;
-    final int c_ini = 1000000;
-    final double t_ini = 1000.0;
+    final int ITER = 1000;
+    final int c_ini = 10000000;
+    final double t_ini = 1000000.0;
     final double alpha = 0.99;
-    final int iter_por_temp = 600;
+    final int iter_por_temp = 10000;
     int scoreMax;
     Solucion solucionMax;
     boolean guardado = false;
@@ -75,15 +75,15 @@ public class Problema {
                     List<Object> score_prima = solucion.crear_hermano();
                     //float p = 
                     if((int) score_prima.get(0) > score || getProbabilidad(score, (int) score_prima.get(0), t_k) > Math.random()){
-                        solucion.aplicar_cambios((int) score_prima.get(1), (int) score_prima.get(2), (int) score_prima.get(3));
+                        int new_score = solucion.aplicar_cambios((int) score_prima.get(1), (int) score_prima.get(2), (int) score_prima.get(3));
 
                         //System.out.println("" + c_k + " " + score + " " + scorePrima_and_cambio[0]);
                         c_k = c_ini;
 
 
-                        score = (int) score_prima.get(0);
+                        score = new_score;
                         //if(scoreMax < score && i%10 == 0){
-                            if(scoreMax < score){
+                        if(scoreMax < score){
                             //solucionMax = solucion.clone();
                             //Si cambias la linea anterior por la siguiente
                             //va más rápido pero falla a veces (i%10 == 0)
@@ -97,10 +97,11 @@ public class Problema {
                     else{
                         c_k--;
                     }
-//                    solucion.mostrar();
+                    //solucion.mostrar();
                 }
                 t_k *= alpha;
                 System.out.println(t_k + " " + scoreMax);
+                //solucion.validarSolucion();
                 vamos++;
                 //t_k = t_ini/(1+vamos);
                 cont++;
