@@ -17,9 +17,9 @@ public class Problema {
     String file_out;
     Solucion solucion;
     
-    final int ITER = 100000;
+    final int ITER = 10000;
     final int c_ini = 1000000;
-    final double t_ini = 1000000.0;
+    final double t_ini = 100000.0;
     final double alpha = 0.99;
     final int iter_por_temp = 1000;
     int scoreMax;
@@ -102,15 +102,15 @@ public class Problema {
                 t_k *= alpha;
                 System.out.println(t_k + " " + scoreMax);
                 vamos++;
-                //t_k = t_ini/(1+vamos);
+//                t_k = t_ini/(1+vamos*5);
                 cont++;
-                if(cont%100 == 0 ){
+                if(cont%1000 == 0 ){
                     if(!guardado){
                         solucionMax.generar_salida( file_out + n);
                         even = !even;
                         guardado = true;
                         n++;
-                        if(n >= 10) n = 0;
+                        if(n >= 5) n = 0;
                     }
                     cont = 0;
                 }
