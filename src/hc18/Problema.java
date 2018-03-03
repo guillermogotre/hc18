@@ -18,10 +18,10 @@ public class Problema {
     Solucion solucion;
     
     final int ITER = 1000;
-    final int c_ini = 10000000;
-    final double t_ini = 1000000.0;
+    final int c_ini = 1000000;
+    final double t_ini = 10000.0;
     final double alpha = 0.99;
-    final int iter_por_temp = 10000;
+    final int iter_por_temp = 100000;
     int scoreMax;
     Solucion solucionMax;
     boolean guardado = false;
@@ -56,7 +56,8 @@ public class Problema {
     
     public void start() throws CloneNotSupportedException{     
         // Solucion inicial
-        solucion = new Solucion(rows, columns,n_vehicles, n_rides,bonus,n_steps, rides);
+        Solucion solucion_ini = new Solucion(rows, columns,n_vehicles, n_rides,bonus,n_steps, rides);
+        solucion = solucion_ini.clone();
         boolean even = true;
         
         // Logica de recocido simulado
@@ -100,7 +101,7 @@ public class Problema {
                     //solucion.mostrar();
                 }
                 t_k *= alpha;
-                System.out.println(t_k + " " + scoreMax);
+                System.out.println(t_k + " \t" + score);
                 //solucion.validarSolucion();
                 vamos++;
                 //t_k = t_ini/(1+vamos);
@@ -117,6 +118,7 @@ public class Problema {
                 }
             }
             solucion = (Solucion) solucionMax.clone();
+            //solucion = solucion_ini.clone();
             score = scoreMax;
         }
         

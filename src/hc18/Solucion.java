@@ -75,6 +75,7 @@ public class Solucion implements Cloneable{
         Object obj = super.clone();
         Solucion s = (Solucion)obj;
         
+        s.score =this.score;
         // Clonar viajes
         s.viajes = this.viajes.clone();
         
@@ -265,7 +266,9 @@ public class Solucion implements Cloneable{
                 dif_score += BONUS;
         }
         score += dif_score;
-        validarSolucion();
+        //if(!validarSolucion()){
+        //    System.out.println("");
+        //}
         return score;
     }
     
@@ -319,11 +322,11 @@ public class Solucion implements Cloneable{
                     d_b = distancia(trayecto_actual[ROW_END], trayecto_actual[COL_END], trayecto_posterior[ROW_ORI], trayecto_posterior[COL_ORI]);
                     
                     if(
-                        t_min+d+d_b <= t_ini_b 
-                        && 
-                        t_ini_b -(d+d_b) - t_fin_a >= d_a
-                        &&
-                        Math.max(t_fin_a+d_a, t_min) + d + d_b < Math.min(t_min, t_ini_b))
+                        //t_min+d+d_b <= t_ini_b 
+                    //&& 
+                    //t_ini_b -(d+d_b) - t_fin_a >= d_a
+                    //&&
+                        Math.max(t_fin_a+d_a, t_min) + d + d_b <= Math.min(t_min, t_ini_b))
                     {
                         int[] tramo = new int[2];
                         tramo[0] = Math.max(d_a+t_fin_a,t_min);
@@ -348,11 +351,11 @@ public class Solucion implements Cloneable{
                 d_b = 0;
 
                 if(
-                    t_min+d+d_b <= t_ini_b 
-                    && 
-                    t_ini_b -(d+d_b) - t_fin_a >= d_a
-                    &&
-                    Math.max(t_fin_a+d_a, t_min) + d + d_b < Math.min(t_max, t_ini_b))
+                    //t_min+d+d_b <= t_ini_b 
+                    //&& 
+                    //t_ini_b -(d+d_b) - t_fin_a >= d_a
+                    //&&
+                    Math.max(t_fin_a+d_a, t_min) + d + d_b <= Math.min(t_max, t_ini_b))
                 {
                     tramo[0] = Math.max(d_a+t_fin_a,t_min);
                     tramo[1] = Math.max(t_ini_b - d - d_b, t_fin_a+d_a);   
@@ -395,11 +398,11 @@ public class Solucion implements Cloneable{
                     }
 
                     if(
-                        t_min+d+d_b <= t_ini_b 
-                        && 
-                        t_ini_b -(d+d_b) - t_fin_a >= d_a
-                        &&
-                        Math.max(t_fin_a+d_a, t_min) + d + d_b < Math.min(t_max, t_ini_b))
+                        //t_min+d+d_b <= t_ini_b 
+                    //&& 
+                    //t_ini_b -(d+d_b) - t_fin_a >= d_a
+                    //&&
+                        Math.max(t_fin_a+d_a, t_min) + d + d_b <= Math.min(t_max, t_ini_b))
                     {
                         int[] tramo = new int[2];
                         tramo[0] = Math.max(d_a+t_fin_a,t_min);
@@ -428,11 +431,11 @@ public class Solucion implements Cloneable{
                 d_b = distancia(trayecto_actual[ROW_END], trayecto_actual[COL_END], trayecto_posterior[ROW_ORI], trayecto_posterior[COL_ORI]);
 
                 if(
-                    t_min+d+d_b <= t_ini_b 
-                    && 
-                    t_ini_b -(d+d_b) - t_fin_a >= d_a
-                    &&
-                    Math.max(t_fin_a+d_a, t_min) + d + d_b < Math.min(t_max, t_ini_b))
+                    //t_min+d+d_b <= t_ini_b 
+                    //&& 
+                    //t_ini_b -(d+d_b) - t_fin_a >= d_a
+                    //&&
+                    Math.max(t_fin_a+d_a, t_min) + d + d_b <= Math.min(t_max, t_ini_b))
                 {
                     int[] tramo = new int[2];
                     tramo[0] = Math.max(d_a +t_fin_a,t_min);
@@ -558,13 +561,16 @@ public class Solucion implements Cloneable{
                 if(b_ride[4]==b[1]){
                     bonus_counter += 1;
                 }
+                int old_b2 = b[2];
                 b[2] = b[1] + dist_b;
+                if(old_b2 == b[2])
+                    break;
             }
         }
         return bonus_counter;
     }
     
-    public void validarSolucion(){
+    public boolean validarSolucion(){
         boolean valido = true;
         int ori_r, ori_c, dest_r, dest_c, iter;
         for (LinkedList<int[]> solCoche : solucion) {
@@ -589,6 +595,7 @@ public class Solucion implements Cloneable{
         }
         if(!valido)
             System.out.println("## DAMN!");
+        return valido;
     }
     //A end
 }
