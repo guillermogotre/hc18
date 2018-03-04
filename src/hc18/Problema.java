@@ -17,11 +17,11 @@ public class Problema {
     String file_out;
     Solucion solucion;
     
-    final int ITER = 10000;
-    final int c_ini = 1000000;
+    final int ITER = 1000;
+    final int c_ini = 100000000;
     final double t_ini = 100000.0;
     final double alpha = 0.99;
-    final int iter_por_temp = 1000;
+    final int iter_por_temp = 10000;
     int scoreMax;
     Solucion solucionMax;
     boolean guardado = false;
@@ -104,7 +104,7 @@ public class Problema {
                 vamos++;
 //                t_k = t_ini/(1+vamos*5);
                 cont++;
-                if(cont%1000 == 0 ){
+                if(cont%10 == 0 ){
                     if(!guardado){
                         solucionMax.generar_salida( file_out + n);
                         even = !even;

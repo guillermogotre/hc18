@@ -164,20 +164,22 @@ public class Solucion implements Cloneable{
                     }
                 }
             }
-           
-            while(it.hasNext()){
+            fin = false;
+            while(it.hasNext() && !fin){
                 el = it.next();
                 viaje_postnew = el;
-                result = cabe(viaje_ant,viaje_post,t,c);
+                result = cabe(viaje_antnew,viaje_postnew,t,c);
                 if(result != -1){
                     resultados.add(result);
                 }
                 viaje_antnew = viaje_postnew;
-                if(viaje_post!= null && viaje_antnew[0] == viaje_post[0]) break;
+                if(viaje_post != null && viaje_antnew[0] == viaje_post[0]){
+                    fin = true;
+                }
             }
             //ARREGLAR
-            if(viaje_ant != null && viaje_post == null){
-                result = cabe(viaje_ant,viaje_post,t,c);
+            if(viaje_post == null){
+                result = cabe(viaje_antnew,viaje_post,t,c);
                 if(result != -1){
                     resultados.add(result);
                 }
@@ -185,7 +187,7 @@ public class Solucion implements Cloneable{
         }
         
         if(resultados.isEmpty()) return -1;
-        int eleccion = (int) Math.random()*resultados.size();
+        int eleccion = (int) (Math.random() * resultados.size());
         
         return resultados.get(eleccion);
     }
@@ -229,21 +231,49 @@ public class Solucion implements Cloneable{
         Random r = new Random();
         int validar;
         int scorenew = 0;
+        int nveces = 0;
+        int t,c;
+        int[] el = new int[3], next = new int[3];
         List<Object> res = new ArrayList();
         while(true){
-            int t = r.nextInt(RIDES);
-            int c = r.nextInt(VEHICLES);
+            do{
+                t = r.nextInt(RIDES);
+                c = r.nextInt(VEHICLES);
+                nveces++;
+            }while(t > 0 && nveces < 20);
+//            int t = r.nextInt(RIDES);
+//            int c = r.nextInt(VEHICLES);
             if(viajes[t] >=0){
                 validar = validar_eliminar(t, c);
                 scorenew = score;
-                if(rides[t][4] == validar){
-                    scorenew-=BONUS;
-                }
                 int orix = rides[t][0];
                 int oriy = rides[t][1];
                 int destx = rides[t][2];
                 int desty = rides[t][3];
                 scorenew -= distancia(orix, oriy, destx, desty);
+                LinkedList<int[]> cp = new LinkedList();
+                for(int i =0; i < solucion.get(c).size(); i++){
+                    cp.add(solucion.get(c).get(i).clone());
+                }
+                ListIterator<int[]> it = cp.listIterator();
+                while(it.hasNext()){
+                    el = it.next();
+                    if(el[0] == t) {
+                        //Si bonus
+                        if(el[1]==rides[t][4])
+                            scorenew -= BONUS;
+                        //No bonus
+                        break;
+                    }
+
+                } 
+//                it.remove();
+                if(it.hasNext())
+                    next = it.next();
+
+                if(next != null)
+                    scorenew += simularActualizarSolucion(c, next)*BONUS;
+                
                 res.add(scorenew);
                 res.add(t);
                 res.add(viajes[t]);
@@ -323,6 +353,58 @@ public class Solucion implements Cloneable{
     public int actualizarSolucion(int c, int[] siguiente){
         int[] a = null, b = null;
         ListIterator<int[]> it = solucion.get(c).listIterator();
+        int a_row, a_col, b_row, b_col, dist_from_a, dist_b;
+        int a_fin_iter;
+        int bonus_counter = 0;
+        int[] a_ride, b_ride;
+        boolean empieza = false;
+        while(it.hasNext()){
+            a = b;
+            b = it.next();
+            empieza = empieza || b == siguiente;
+            if(empieza){
+                int old_iter_to_a, new_iter_to_a;
+                if(a==null){
+                    a_row = 0;
+                    a_col = 0;
+                    a_fin_iter = 0;
+                }else{
+                    a_ride = rides[a[0]];
+                    a_row = a_ride[2];
+                    a_col = a_ride[3];
+                    a_fin_iter = a[2];
+                }
+                b_ride = rides[b[0]];
+                b_row = b_ride[0];
+                b_col = b_ride[1];
+                dist_from_a = distancia(a_row, a_col, b_row, b_col);
+                dist_b = b[2]-b[1];
+                
+                if(b_ride[4]==b[1]){
+                    bonus_counter -= 1;
+                }
+                
+                b[1] = Math.max(a_fin_iter+dist_from_a, b_ride[4]);
+                
+                if(b_ride[4]==b[1]){
+                    bonus_counter += 1;
+                }
+                int old_b2 = b[2];
+                b[2] = b[1] + dist_b;
+                if(old_b2 == b[2])
+                    break;
+            }
+        }
+        return bonus_counter;
+    }
+    
+    public int simularActualizarSolucion(int c, int[] siguiente){
+        int[] a = null, b = null;
+        LinkedList<int[]> cp = new LinkedList();
+        for(int i =0; i < solucion.get(c).size(); i++){
+            cp.add(solucion.get(c).get(i).clone());
+        }
+        ListIterator<int[]> it = cp.listIterator();
         int a_row, a_col, b_row, b_col, dist_from_a, dist_b;
         int a_fin_iter;
         int bonus_counter = 0;
@@ -483,7 +565,8 @@ public class Solucion implements Cloneable{
             d_p = distancia(rides[anterior[0]][2], rides[anterior[0]][3], rides[trayecto][0], rides[trayecto][1]);
             d_pp = distancia(rides[trayecto][2], rides[trayecto][3], rides[siguiente[0]][0], rides[siguiente[0]][1]);
         }
-        if(Math.max(rides[trayecto][4], t_fina+d_p)+d+d_pp <= Math.min(t_inib, rides[trayecto][5])){
+        int min = Math.min(t_inib, rides[trayecto][5]);
+        if(Math.max(rides[trayecto][4], t_fina+d_p)+d+d_pp <= Math.min(min, TIME)){
             return Math.max(rides[trayecto][4], t_fina+d_p);
         }
         return -1;
