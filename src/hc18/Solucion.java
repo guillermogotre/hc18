@@ -252,11 +252,11 @@ public class Solucion implements Cloneable{
                 int destx = rides[t][2];
                 int desty = rides[t][3];
                 scorenew -= distancia(orix, oriy, destx, desty);
-                LinkedList<int[]> cp = new LinkedList();
-                for(int i =0; i < solucion.get(viajes[t]).size(); i++){
-                    cp.add(solucion.get(viajes[t]).get(i).clone());
-                }
-                ListIterator<int[]> it = cp.listIterator();
+//                LinkedList<int[]> cp = new LinkedList();
+//                for(int i =0; i < solucion.get(viajes[t]).size(); i++){
+//                    cp.add(solucion.get(viajes[t]).get(i).clone());
+//                }
+                ListIterator<int[]> it = solucion.get(viajes[t]).listIterator();
                 while(it.hasNext()){
                     el = it.next();
                     if(el[0] == t) {
@@ -267,12 +267,12 @@ public class Solucion implements Cloneable{
                         break;
                     }
                 } 
-//                it.remove();
-                if(it.hasNext())
-                    next = it.next();
-
-                if(next != null)
-                    scorenew += simularActualizarSolucion(viajes[t], next)*BONUS;
+////                it.remove();
+//                if(it.hasNext())
+//                    next = it.next();
+//
+//                if(next != null)
+//                    scorenew += simularActualizarSolucion(viajes[t], next)*BONUS;
                 
                 res.add(scorenew);
                 res.add(t);
@@ -283,9 +283,7 @@ public class Solucion implements Cloneable{
             validar = validar_crear(t, c);
             if(validar >= 0){
                 scorenew = score;
-                if(rides[t][4] == validar){
-                    scorenew+=BONUS;
-                }
+                if(validar == rides[t][4]) scorenew += BONUS;
                 int orix = rides[t][0];
                 int oriy = rides[t][1];
                 int destx = rides[t][2];
@@ -468,16 +466,15 @@ public class Solucion implements Cloneable{
                         dif_score -= BONUS;
                     //No bonus
                     break;
-                }
-                
+                }   
             } 
             it.remove();
-            if(it.hasNext())
-                next = it.next();
+//            if(it.hasNext())
+//                next = it.next();
             viajes[t] = -1;
             
-            if(next != null)
-                score += actualizarSolucion(c, next)*BONUS;
+//            if(next != null)
+//                score += actualizarSolucion(c, next)*BONUS;
             
             score += dif_score;
         }
