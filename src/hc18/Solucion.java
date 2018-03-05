@@ -165,6 +165,7 @@ public class Solucion implements Cloneable{
                 }
             }
             fin = false;
+            viaje_antnew = viaje_ant;
             while(it.hasNext() && !fin){
                 el = it.next();
                 viaje_postnew = el;
@@ -178,8 +179,8 @@ public class Solucion implements Cloneable{
                 }
             }
             //ARREGLAR
-            if(viaje_post == null){
-                result = cabe(viaje_antnew,viaje_post,t,c);
+            if(!fin){
+                result = cabe(viaje_postnew,null,t,c);
                 if(result != -1){
                     resultados.add(result);
                 }
@@ -236,15 +237,15 @@ public class Solucion implements Cloneable{
         int[] el = new int[3], next = new int[3];
         List<Object> res = new ArrayList();
         while(true){
-            do{
-                t = r.nextInt(RIDES);
-                c = r.nextInt(VEHICLES);
-                nveces++;
-            }while(t > 0 && nveces < 20);
-//            int t = r.nextInt(RIDES);
-//            int c = r.nextInt(VEHICLES);
+//            do{
+//                t = r.nextInt(RIDES);
+//                c = r.nextInt(VEHICLES);
+//                nveces++;
+//            }while(t > 0 && nveces < 20);
+            t = r.nextInt(RIDES);
+            c = r.nextInt(VEHICLES);
             if(viajes[t] >=0){
-                validar = validar_eliminar(t, c);
+                validar = validar_eliminar(t, viajes[t]);
                 scorenew = score;
                 int orix = rides[t][0];
                 int oriy = rides[t][1];
@@ -252,8 +253,8 @@ public class Solucion implements Cloneable{
                 int desty = rides[t][3];
                 scorenew -= distancia(orix, oriy, destx, desty);
                 LinkedList<int[]> cp = new LinkedList();
-                for(int i =0; i < solucion.get(c).size(); i++){
-                    cp.add(solucion.get(c).get(i).clone());
+                for(int i =0; i < solucion.get(viajes[t]).size(); i++){
+                    cp.add(solucion.get(viajes[t]).get(i).clone());
                 }
                 ListIterator<int[]> it = cp.listIterator();
                 while(it.hasNext()){
@@ -265,14 +266,13 @@ public class Solucion implements Cloneable{
                         //No bonus
                         break;
                     }
-
                 } 
 //                it.remove();
                 if(it.hasNext())
                     next = it.next();
 
                 if(next != null)
-                    scorenew += simularActualizarSolucion(c, next)*BONUS;
+                    scorenew += simularActualizarSolucion(viajes[t], next)*BONUS;
                 
                 res.add(scorenew);
                 res.add(t);
