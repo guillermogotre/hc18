@@ -90,35 +90,6 @@ public class Solucion implements Cloneable{
     // Juanka fin
     
 //Guillermo ini
-    //out: -1 no valido , it si valido
-//    public int validar_crear(int t, int c){
-//        final int T_INI = 1;
-//        final int T_FIN = 2;
-//        final int T_MIN = 4;
-//        final int T_MAX = 5;
-//        
-//        int t_min = rides[t][T_MIN];
-//        int t_max = rides[t][T_MAX];
-//        ListIterator<int[]> it = solucion.get(c).listIterator();
-//        boolean fin = false;
-//        int[] el, viaje_ant = null, viaje_post= null, candidato=null;
-//        while(it.hasNext() && !fin){
-//            el = it.next();
-//            if(viaje_ant == null){
-//                if(el[T_INI] > t_min)
-//                    viaje_ant = candidato;
-//                else
-//                    candidato = el;
-//            }
-//            if(el[T_FIN] > t_max){
-//                viaje_post = el;
-//                fin = true;
-//            }
-//        }
-//       //si cabe
-//       return cabe(viaje_ant, viaje_post, t);
-//    }
-    
     public int validar_crear(int t, int c){
         final int T_INI = 1;
         final int T_FIN = 2;
@@ -130,7 +101,7 @@ public class Solucion implements Cloneable{
         ListIterator<int[]> it = solucion.get(c).listIterator();
         int[] el,viaje_ant = null, viaje_post= null,candidato = null,viaje_antnew = null, viaje_postnew= null;
         
-        if(solucion.get(c).isEmpty() || solucion.get(c) == null){
+        if(solucion.get(c) == null || solucion.get(c).isEmpty()){
             result = cabe(viaje_ant,viaje_post,t,c);
             if(result != -1){
                 resultados.add(result);
@@ -165,21 +136,20 @@ public class Solucion implements Cloneable{
                 }
             }
             fin = false;
-            viaje_antnew = viaje_ant;
+            if(viaje_ant != null) viaje_antnew = viaje_ant.clone();
             while(it.hasNext() && !fin){
                 el = it.next();
-                viaje_postnew = el;
+                viaje_postnew = el.clone();
                 result = cabe(viaje_antnew,viaje_postnew,t,c);
                 if(result != -1){
                     resultados.add(result);
                 }
-                viaje_antnew = viaje_postnew;
+                viaje_antnew = viaje_postnew.clone();
                 if(viaje_post != null && viaje_antnew[0] == viaje_post[0]){
                     fin = true;
                 }
             }
-            //ARREGLAR
-            if(!fin){
+            if(!fin || viaje_post == null){
                 result = cabe(viaje_postnew,null,t,c);
                 if(result != -1){
                     resultados.add(result);
@@ -252,27 +222,25 @@ public class Solucion implements Cloneable{
                 int destx = rides[t][2];
                 int desty = rides[t][3];
                 scorenew -= distancia(orix, oriy, destx, desty);
-//                LinkedList<int[]> cp = new LinkedList();
-//                for(int i =0; i < solucion.get(viajes[t]).size(); i++){
-//                    cp.add(solucion.get(viajes[t]).get(i).clone());
-//                }
-                ListIterator<int[]> it = solucion.get(viajes[t]).listIterator();
+                LinkedList<int[]> cp = new LinkedList();
+                for(int i =0; i < solucion.get(viajes[t]).size(); i++){
+                    cp.add(solucion.get(viajes[t]).get(i).clone());
+                }
+                ListIterator<int[]> it = cp.listIterator();
                 while(it.hasNext()){
                     el = it.next();
                     if(el[0] == t) {
-                        //Si bonus
-                        if(el[1]==rides[t][4])
-                            scorenew -= BONUS;
-                        //No bonus
                         break;
                     }
-                } 
+                }
+                
+                if(validar == rides[t][4]) scorenew-=BONUS; 
 ////                it.remove();
-//                if(it.hasNext())
-//                    next = it.next();
-//
-//                if(next != null)
-//                    scorenew += simularActualizarSolucion(viajes[t], next)*BONUS;
+                if(it.hasNext())
+                    next = it.next();
+
+                if(next != null)
+                    scorenew += simularActualizarSolucion(viajes[t], next)*BONUS;
                 
                 res.add(scorenew);
                 res.add(t);
@@ -469,12 +437,12 @@ public class Solucion implements Cloneable{
                 }   
             } 
             it.remove();
-//            if(it.hasNext())
-//                next = it.next();
+            if(it.hasNext())
+                next = it.next();
             viajes[t] = -1;
             
-//            if(next != null)
-//                score += actualizarSolucion(c, next)*BONUS;
+            if(next != null)
+                score += actualizarSolucion(c, next)*BONUS;
             
             score += dif_score;
         }
@@ -562,8 +530,8 @@ public class Solucion implements Cloneable{
             d_p = distancia(rides[anterior[0]][2], rides[anterior[0]][3], rides[trayecto][0], rides[trayecto][1]);
             d_pp = distancia(rides[trayecto][2], rides[trayecto][3], rides[siguiente[0]][0], rides[siguiente[0]][1]);
         }
-        int min = Math.min(t_inib, rides[trayecto][5]);
-        if(Math.max(rides[trayecto][4], t_fina+d_p)+d+d_pp <= Math.min(min, TIME)){
+        int fin = Math.min(t_inib, rides[trayecto][5]);
+        if(Math.max(rides[trayecto][4], t_fina+d_p)+d+d_pp <= Math.min(fin, TIME)){
             return Math.max(rides[trayecto][4], t_fina+d_p);
         }
         return -1;

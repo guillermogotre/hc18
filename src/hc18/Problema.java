@@ -17,11 +17,11 @@ public class Problema {
     String file_out;
     Solucion solucion;
     
-    final int ITER = 10000;
+    final int ITER = 10000000;
     final int c_ini = 10000000;
     final double t_ini = 100000.0;
     final double alpha = 0.99;
-    final int iter_por_temp = 100000;
+    final int iter_por_temp = 1000000;
     int scoreMax;
     Solucion solucionMax;
     boolean guardado = false;
