@@ -207,15 +207,15 @@ public class Solucion implements Cloneable{
         int[] el = new int[3], next = new int[3];
         List<Object> res = new ArrayList();
         while(true){
-            do{
-                t = r.nextInt(RIDES);
-                nveces++;
-            }while(t > 0 && nveces < 200);
-            c = r.nextInt(VEHICLES);
-            nveces = 0;
-            
-//            t = r.nextInt(RIDES);
+//            do{
+//                t = r.nextInt(RIDES);
+//                nveces++;
+//            }while(t > 0 && nveces < 200);
 //            c = r.nextInt(VEHICLES);
+//            nveces = 0;
+            
+            t = r.nextInt(RIDES);
+            c = r.nextInt(VEHICLES);
             if(viajes[t] >=0){
                 validar = validar_eliminar(t, viajes[t]);
                 scorenew = score;

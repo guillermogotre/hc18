@@ -18,10 +18,10 @@ public class Problema {
     Solucion solucion;
     
     final int ITER = 10000000;
-    final int c_ini = 1000000000;
-    final double t_ini = 5000.0;
-    final double alpha = 0.999;
-    final int iter_por_temp = 10000;
+    final int c_ini = 10000000;
+    final double t_ini = 200.0;
+    final double alpha = 0.99;
+    final int iter_por_temp = 1000000;
     int scoreMax;
     Solucion solucionMax;
     boolean guardado = false;
