@@ -18,10 +18,10 @@ public class Problema {
     Solucion solucion;
     
     final int ITER = 10000000;
-    final int c_ini = 10000000;
-    final double t_ini = 100000.0;
-    final double alpha = 0.99;
-    final int iter_por_temp = 100000;
+    final int c_ini = 1000000000;
+    final double t_ini = 5000.0;
+    final double alpha = 0.999;
+    final int iter_por_temp = 10000;
     int scoreMax;
     Solucion solucionMax;
     boolean guardado = false;
@@ -100,7 +100,7 @@ public class Problema {
 //                    solucion.mostrar();
                 }
                 t_k *= alpha;
-                System.out.println(t_k + " " + scoreMax);
+                System.out.println(t_k + " " + scoreMax + " " + score);
                 vamos++;
 //                t_k = t_ini/(1+vamos*5);
                 cont++;
