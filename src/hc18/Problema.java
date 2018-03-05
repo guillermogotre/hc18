@@ -21,7 +21,7 @@ public class Problema {
     final int c_ini = 10000000;
     final double t_ini = 100000.0;
     final double alpha = 0.99;
-    final int iter_por_temp = 1000000;
+    final int iter_por_temp = 100000;
     int scoreMax;
     Solucion solucionMax;
     boolean guardado = false;
@@ -104,7 +104,7 @@ public class Problema {
                 vamos++;
 //                t_k = t_ini/(1+vamos*5);
                 cont++;
-                if(cont%10 == 0 ){
+//                if(cont%10 == 0 ){
                     if(!guardado){
                         solucionMax.generar_salida( file_out + n);
                         even = !even;
@@ -113,7 +113,7 @@ public class Problema {
                         if(n >= 5) n = 0;
                     }
                     cont = 0;
-                }
+//                }
             }
             solucion = (Solucion) solucionMax.clone();
             score = scoreMax;

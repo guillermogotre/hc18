@@ -222,25 +222,25 @@ public class Solucion implements Cloneable{
                 int destx = rides[t][2];
                 int desty = rides[t][3];
                 scorenew -= distancia(orix, oriy, destx, desty);
-                LinkedList<int[]> cp = new LinkedList();
-                for(int i =0; i < solucion.get(viajes[t]).size(); i++){
-                    cp.add(solucion.get(viajes[t]).get(i).clone());
-                }
-                ListIterator<int[]> it = cp.listIterator();
-                while(it.hasNext()){
-                    el = it.next();
-                    if(el[0] == t) {
-                        break;
-                    }
-                }
+//                LinkedList<int[]> cp = new LinkedList();
+//                for(int i =0; i < solucion.get(viajes[t]).size(); i++){
+//                    cp.add(solucion.get(viajes[t]).get(i).clone());
+//                }
+//                ListIterator<int[]> it = cp.listIterator();
+//                while(it.hasNext()){
+//                    el = it.next();
+//                    if(el[0] == t) {
+//                        break;
+//                    }
+//                }
                 
                 if(validar == rides[t][4]) scorenew-=BONUS; 
 ////                it.remove();
-                if(it.hasNext())
-                    next = it.next();
-
-                if(next != null)
-                    scorenew += simularActualizarSolucion(viajes[t], next)*BONUS;
+//                if(it.hasNext())
+//                    next = it.next();
+//
+//                if(next != null)
+//                    scorenew += simularActualizarSolucion(viajes[t], next)*BONUS;
                 
                 res.add(scorenew);
                 res.add(t);
@@ -437,12 +437,12 @@ public class Solucion implements Cloneable{
                 }   
             } 
             it.remove();
-            if(it.hasNext())
-                next = it.next();
+//            if(it.hasNext())
+//                next = it.next();
             viajes[t] = -1;
             
-            if(next != null)
-                score += actualizarSolucion(c, next)*BONUS;
+//            if(next != null)
+//                score += actualizarSolucion(c, next)*BONUS;
             
             score += dif_score;
         }
